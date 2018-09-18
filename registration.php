@@ -5,7 +5,7 @@
     __DIR__
 );
 
-$path = '../../../content-constructor-admin/dist';
+$path = '../../../magesuite-content-constructor-admin/dist';
 
 if(!is_link(__DIR__.'/view/adminhtml/web')) {
     symlink($path, __DIR__.'/view/adminhtml/web');
