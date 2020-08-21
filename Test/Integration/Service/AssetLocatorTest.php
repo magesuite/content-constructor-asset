@@ -14,7 +14,7 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
      */
     private $objectManager;
 
-    public function setUp() {
+    public function setUp(): void {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
 
         $this->locator = $this->objectManager
