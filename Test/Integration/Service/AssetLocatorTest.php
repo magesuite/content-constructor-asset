@@ -28,7 +28,9 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
     public function testItReturnsCorrectUrlForAdminArea() {
         $url = $this->prepareRegexUrl('http://localhost/pub/static/version([0-9]+?)/adminhtml/Magento/backend/en_US/MageSuite_ContentConstructorAsset/images/sprites.svg');
 
-        $this->assertRegExp(
+        $assertRegExp = method_exists($this, 'assertMatchesRegularExpression') ? 'assertMatchesRegularExpression' : 'assertRegExp';
+
+        $this->$assertRegExp(
             $url,
             $this->locator->getUrl('images/sprites.svg')
         );
@@ -40,7 +42,9 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
     public function testItReturnsCorrectUrlForFrontend() {
         $url = $this->prepareRegexUrl('http://localhost/pub/static/version([0-9]+?)/frontend/Magento/luma/en_US/images/sprites.svg');
 
-        $this->assertRegExp(
+        $assertRegExp = method_exists($this, 'assertMatchesRegularExpression') ? 'assertMatchesRegularExpression' : 'assertRegExp';
+
+        $this->$assertRegExp(
             $url,
             $this->locator->getUrl('images/sprites.svg')
         );
