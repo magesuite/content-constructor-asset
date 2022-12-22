@@ -14,12 +14,14 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
      */
     protected $locator;
 
+    protected ?\Magento\Framework\View\DesignInterface $design;
+
     public function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
-
         $this->locator = $this->objectManager
             ->get(\MageSuite\ContentConstructorAsset\Service\AssetLocator::class);
+        $this->design = $this->objectManager->get(\Magento\Framework\View\DesignInterface::class);
     }
 
     /**
@@ -27,7 +29,8 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
      */
     public function testItReturnsCorrectUrlForAdminArea()
     {
-        $expectedUrl = $this->prepareRegexUrl('http://localhost/static/version([0-9]+?)/adminhtml/Magento/backend/en_US/MageSuite_ContentConstructorAsset/images/sprites.svg');
+        $theme = $this->design->getDesignTheme();
+        $expectedUrl = $this->prepareRegexUrl("http://localhost/static/version([0-9]+?)/adminhtml/{$theme->getCode()}/en_US/MageSuite_ContentConstructorAsset/images/sprites.svg");
 
         $assertRegExp = method_exists($this, 'assertMatchesRegularExpression') ? 'assertMatchesRegularExpression' : 'assertRegExp';
 
@@ -44,7 +47,8 @@ class AssetLocatorTest extends \PHPUnit\Framework\TestCase
      */
     public function testItReturnsCorrectUrlForFrontend()
     {
-        $expectedUrl = $this->prepareRegexUrl('http://localhost/static/version([0-9]+?)/frontend/Magento/luma/en_US/images/sprites.svg');
+        $theme = $this->design->getDesignTheme();
+        $expectedUrl = $this->prepareRegexUrl("http://localhost/static/version([0-9]+?)/frontend/{$theme->getCode()}/en_US/images/sprites.svg");
 
         $assertRegExp = method_exists($this, 'assertMatchesRegularExpression') ? 'assertMatchesRegularExpression' : 'assertRegExp';
 
